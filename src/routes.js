@@ -9,7 +9,7 @@ const Routes = () => {
     <Switch>
       <Route
         exact
-        path='/'
+        path='/dashboard'
         render={() => (
           <Dashboard />
         )} 

@@ -1,4 +1,4 @@
-const MyStyles = {
+export const MyStyles = {
   fonts: {
     black: "Montserrat-Black",
     black_italic: "Montserrat-BlackItalic",
@@ -40,5 +40,3 @@ const MyStyles = {
     },
   },
 };
-
-export default MyStyles;
