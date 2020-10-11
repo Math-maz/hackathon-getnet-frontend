@@ -47,8 +47,6 @@ const useStyles = makeStyles({
     flexDirection: 'row',
   },
   contentArea: {
-    // display: 'flex',
-    // flexDirection: 'column',
     width: '-webkit-fill-available',
   },
   content: {
@@ -82,13 +80,23 @@ const useStyles = makeStyles({
     marginTop: '10px',
     display: 'flex',
     flexDirection: 'row',
-    // justifyContent: 'space-between'
+    justifyContent: 'space-evenly',
+    '& svg': {
+      display: 'flex',
+      alignItems: 'center',
+      color: MyStyles.colors.primary,
+      marginRight: '30px',
+      height: '40px',
+      width: '40px',
+    }
   },
   notification: {
     display: 'flex',
     alignItems: "center",
     justifyContent: "center",
-    width: '150px',
+    width: '200px',
+    textAlign: 'center',
+    color:  MyStyles.colors.darks[50]
   },
   counterContainer: {
     width: '1040px',
@@ -98,18 +106,43 @@ const useStyles = makeStyles({
     justifyContent: 'space-between'
   },
   visitsAndCouponsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: 'space-evenly',
     background: 'white',
     borderRadius: 10,
     height: '150px',
+    width: '400px',
+    textAlign: 'center',
+    color:  MyStyles.colors.darks[50],
   },
   bestDayContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: "center",
     background: 'white',
     borderRadius: 10,
     height: '150px',
+    width: '590px',
+    color: MyStyles.colors.primary,
   },
   btnsContainer: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+  },
+  btns: {
+    display: 'flex',
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: 'bold',
+    fontSize: '12px',
+    color: 'white',
+    borderRadius: '20px',
+    width: '300px',
+
   }
 });
 
@@ -143,18 +176,19 @@ const Dashboard = () => {
             <div className={classes.notificationContainer}>
               <div className={classes.notification}>
                 <ContactsIcon />
-              <p>{clients === 1? `1 cliente está`: `${clients} clientes estão`} esperando sua resposta no chat</p>
-                
+                <p><span style={{fontWeight: "bold"}}>{clients}</span>{clients === 1? ` cliente está`: ` clientes estão`} esperando sua resposta no chat</p>
               </div>
               <Divider orientation="vertical" flexItem/>
               <div className={classes.notification}>
                 <LocalOfferIcon />
-                Sua loja tem {coupons ===1 ? `1 cupom disponível`: `${coupons} cupons disponíveis`}
+                <p>Sua loja tem
+                  <div><span style={{fontWeight: "bold", color: 'black'}}>{coupons}</span></div> 
+                  {coupons ===1 ? ` cupom disponível`: ` cupons disponíveis`}</p>
               </div>
               <Divider orientation="vertical" flexItem/>
               <div className={classes.btnsContainer}>
-                <Button variant="contained" style={{backgroundColor: MyStyles.colors.secondary}}>CRIAR UMA PROMOÇÃO</Button>
-                <Button variant="contained" style={{backgroundColor: MyStyles.colors.primary}}>ENVIAR UMA COBRANÇA</Button>
+                <Button variant="contained" className={classes.btns} style={{backgroundColor: MyStyles.colors.secondary}}>CRIAR UMA PROMOÇÃO</Button>
+                <Button variant="contained" className={classes.btns} style={{backgroundColor: MyStyles.colors.primary}}>ENVIAR UMA COBRANÇA</Button>
               </div>
             </div>
           </section>
@@ -163,15 +197,20 @@ const Dashboard = () => {
             <div className={classes.counterContainer}>
               <div className={classes.visitsAndCouponsContainer}>
                 <div>
-                  {visits === 1? `1 visita`: `${visits} visitas`} em sua loja
+                  <div style={{fontSize: '24px'}}>{visits}</div>
+                  <div style={{color: MyStyles.colors.primary}}>{visits === 1? `Visita`: `Visitas`} na sua página</div>
                 </div>
                 <Divider orientation="vertical" flexItem/>
                 <div>
-                  {coupons === 1? `1 cupom usado`: `${coupons} cupons usados`}
+                  <div style={{fontSize: '24px'}}>{coupons}</div>
+                  <div style={{color: MyStyles.colors.primary}}>{coupons === 1? `Cupom usado`: `Cupons usados`}</div>
                 </div>
               </div>
               <div className={classes.bestDayContainer}>
-                Melhor dia da semana
+                <p>O maior número de visitas em sua loja foi:</p>
+                <p style={{color: 'black', fontWeight: 'bold'}}>Quarta-feira</p>
+                <p>Que tal adicionar um cupom de desconto este dia?</p>
+                <Button variant="contained" className={classes.btns} style={{backgroundColor: MyStyles.colors.secondary}}>CRIAR UMA PROMOÇÃO</Button>              
               </div>
             </div>
           </section>
