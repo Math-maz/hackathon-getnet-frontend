@@ -4,6 +4,7 @@ import MyStyles from "../../assets/styles/MyStyles";
 import Searchbar from "../Searchbar";
 import { AccountCircle, ExitToApp } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
+import Logo from "../../assets/styles/images/logo1.png";
 const useStyles = makeStyles({
   root: {
     position: "sticky",
@@ -18,6 +19,7 @@ const useStyles = makeStyles({
     WebkitBoxShadow: "2px 2px 5px 0px rgba(0,0,0,0.75)",
     alignItems: "center",
   },
+  logo: { width: "150px" },
   logoContainer: {
     display: "flex",
     alignItems: "center",
@@ -28,7 +30,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    alignitems: "center",
+    alignItems: "center",
   },
 });
 const Navbar = () => {
@@ -36,7 +38,7 @@ const Navbar = () => {
   return (
     <nav className={classes.root}>
       <div className={classes.logoContainer}>
-        <div>LOGO</div>
+        <img src={Logo} className={classes.logo} />
         <Searchbar />
       </div>
       <div className={classes.userInfoContainer}>

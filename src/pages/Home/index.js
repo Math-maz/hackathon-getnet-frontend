@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/styles";
 import Navbar from "../../Components/BaseNavbar";
 import MyStyles from "../../assets/styles/MyStyles";
 import Storecard from "../../Components/Storecard";
+import Banner from "../../assets/styles/images/banner.png";
 const mocks = [
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
@@ -57,21 +58,15 @@ const mocks = [
 ];
 const useStyles = makeStyles({
   root: {
-    marginTop: "12px",
     paddingTop: "24px",
     display: "flex",
     flex: 1,
     flexDirection: "column",
     placeItems: "center",
+    backgroundColor: MyStyles.colors.gray,
   },
   banner: {
-    display: "flex",
     width: "80%",
-    height: "150px",
-    justifyContent: "center",
-    alignItems: "center",
-    border: "1px solid",
-    borderColor: MyStyles.colors.black,
   },
   mainStoreList: {
     display: "flex",
@@ -103,7 +98,7 @@ const Home = () => {
     <>
       <Navbar />
       <div className={classes.root}>
-        <div className={classes.banner}>BANNER BONITO AQUI</div>
+        <img src={Banner} alt="" className={classes.banner} />
         <div className={classes.mainStoreList}>
           <div className={classes.header}>Descontos perto de você!</div>
           <div className={classes.storeCardContainer}>
