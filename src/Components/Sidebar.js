@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from "../assets/styles/images/logo1.png";
+import Divider from '@material-ui/core/Divider';
 import HomeIcon from '@material-ui/icons/Home';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import CastForEducationIcon from '@material-ui/icons/CastForEducation';
@@ -84,6 +85,7 @@ const SideBar = () => {
         <div className={classes.logoContainer}>
           <img src={Logo} className={classes.logo} alt="Duas mãos formando um círculo"/>
         </div>
+        <Divider variant="middle" />
         <div className={classes.menu}>
           <div className={classes.homeButton}>
             <Link to='/dashboard/'>
