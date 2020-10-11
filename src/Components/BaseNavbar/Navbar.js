@@ -5,6 +5,7 @@ import Searchbar from "../Searchbar";
 import { AccountCircle, ExitToApp } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
 import Logo from "../../assets/styles/images/logo1.png";
+
 const useStyles = makeStyles({
   root: {
     position: "sticky",

@@ -3,10 +3,18 @@ import { Route, Switch } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
+import Courses from './pages/Dashboard/Courses';
 
 const Routes = () => {
   return (
     <Switch>
+      <Route 
+        exact 
+        path="/" 
+        render={() => (
+          <Home/>
+        )}
+      />
       <Route
         exact
         path='/dashboard'
@@ -14,7 +22,13 @@ const Routes = () => {
           <Dashboard />
         )} 
       />
-      <Route exact path="/dashboard" render={()=><Home/>}/>
+      <Route
+        exact
+        path='/dashboard/cursos'
+        render={() => (
+          <Courses />
+        )} 
+      />
     </Switch>
   );
 }

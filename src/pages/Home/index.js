@@ -4,6 +4,7 @@ import Navbar from "../../Components/BaseNavbar";
 import MyStyles from "../../assets/styles/MyStyles";
 import Storecard from "../../Components/Storecard";
 import Banner from "../../assets/styles/images/banner.png";
+
 const mocks = [
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
@@ -56,6 +57,7 @@ const mocks = [
     storeName: "random store",
   },
 ];
+
 const useStyles = makeStyles({
   root: {
     paddingTop: "24px",
@@ -92,6 +94,7 @@ const useStyles = makeStyles({
     fontWeight: "bold",
   },
 });
+
 const Home = () => {
   const classes = useStyles();
   return (

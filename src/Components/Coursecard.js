@@ -1,9 +1,12 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import MyStyles from "../../assets/styles/MyStyles";
+import MyStyles from "../assets/styles/MyStyles";
 
 const useStyles = makeStyles({
   root: {
+    width: '330px',
+    height: '190px',
+    marginTop: '15px',
     position: "relative",
     borderRadius: 20,
     overflow: "hidden",
@@ -16,7 +19,7 @@ const useStyles = makeStyles({
     zIndex: 0,
     overflow: "hidden",
   },
-  discount: {
+  course: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -32,36 +35,29 @@ const useStyles = makeStyles({
     overflow: "hidden",
   },
   title: {
-    fontWeight: "bold",
     fontSize: 20,
-  },
-  discountValue: {
-    fontSize: 14,
+    margin: 'auto 20px'
   },
 });
-export default function Storecard({
+export default function Coursecard({
   imageSource,
-  discountValue,
-  storeName,
-  width,
+  title,
 }) {
   const classes = useStyles();
   return (
-    <div className={classes.root} style={{ minWidth: width }}>
+    <div className={classes.root}>
       <img
         src={imageSource}
-        style={{ width: width }}
+        style={{
+          width: '330px',
+          height: '190px',
+        }}
         alt="Store card"
         className={classes.image}
       />
-      {discountValue && (
-        <div className={classes.discount}>
-          <div className={classes.title}>{storeName}</div>
-          <div className={classes.discountValue}>
-            {discountValue}% de desconto
-          </div>
-        </div>
-      )}
+      <div className={classes.course}>
+        <div className={classes.title}>{title}</div>
+      </div>
     </div>
   );
 }
