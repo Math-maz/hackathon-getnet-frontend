@@ -14,6 +14,7 @@ const Routes = () => {
           <Dashboard />
         )} 
       />
+      <Route exact path="/dashboard" render={()=><Home/>}/>
     </Switch>
   );
 }
