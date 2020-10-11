@@ -13,11 +13,13 @@ const useStyles = makeStyles({
     backgroundColor: MyStyles.colors.gray,
     borderRadius: 25,
     marginLeft: "10px",
+    border: "1px solid #ccc",
   },
   textInput: {
     width: "300px",
     borderRadius: "24%",
     color: MyStyles.colors.primary,
+    fontWeight: "bold",
   },
 });
 export default function Searchbar() {
