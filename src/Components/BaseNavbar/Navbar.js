@@ -4,8 +4,10 @@ import MyStyles from "../../assets/styles/MyStyles";
 import Searchbar from "../Searchbar";
 import { AccountCircle, ExitToApp } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import Logo from "../../assets/styles/images/icon.png";
+import HomeContext from "../../lib/context/home/HomeContext";
+import { formatToCurrency } from "../../helpers/formatter";
 const useStyles = makeStyles({
   root: {
     position: "sticky",
@@ -36,8 +38,12 @@ const useStyles = makeStyles({
   },
 });
 const Navbar = () => {
+  const {
+    state: { user },
+  } = React.useContext(HomeContext);
   const classes = useStyles();
   const location = useLocation();
+  const history = useHistory();
   return (
     <nav className={classes.root}>
       <div className={classes.logoContainer}>
@@ -62,10 +68,10 @@ const Navbar = () => {
               color: MyStyles.colors.darks["70"],
             }}
           >
-            R$ 120,00
+            {user.balance && formatToCurrency(user.balance)}
           </div>
         </div>
-        <IconButton>
+        <IconButton onClick={() => history.push("/carteira")}>
           <AccountCircle
             fontSize="large"
             style={{ color: MyStyles.colors.primary }}

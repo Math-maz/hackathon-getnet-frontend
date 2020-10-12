@@ -26,7 +26,7 @@ const useStyles = makeStyles({
     marginBottom: "48px",
   },
   banner: {
-    width: "80%",
+    width: "87.5%",
   },
   mainStoreList: {
     display: "flex",
@@ -38,7 +38,7 @@ const useStyles = makeStyles({
     color: MyStyles.colors.primary,
     fontSize: 24,
     fontWeight: "bold",
-    marginLeft: "10%",
+    marginLeft: "6%",
   },
   storeCardContainer: {
     display: "flex",
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
     color: MyStyles.colors.black,
     fontSize: 22,
     fontWeight: "bold",
-    marginLeft: "10%",
+    marginLeft: "6%",
   },
   carouselArrow: {
     backgroundColor: MyStyles.colors.primary,
@@ -75,7 +75,7 @@ const Home = () => {
     actions,
   } = React.useContext(HomeContext);
   React.useEffect(() => {
-    Api.get("/store/all").then((res) => console.log(res.data));
+    Api.get("/store/all").then((res) => setStores(res.data.allStores));
   }, []);
   return (
     <>
@@ -85,62 +85,64 @@ const Home = () => {
         <div className={classes.mainStoreList}>
           <div className={classes.header}>Descontos perto de você!</div>
           <div className={classes.storeCardContainer}>
-            <Carousel
-              plugins={[
-                {
-                  resolve: slidesToShowPlugin,
-                  options: {
-                    numberOfSlides: 3,
+            {stores.length > 1 && (
+              <Carousel
+                plugins={[
+                  {
+                    resolve: slidesToShowPlugin,
+                    options: {
+                      numberOfSlides: 3,
+                    },
                   },
-                },
-                {
-                  resolve: arrowsPlugin,
-                  options: {
-                    arrowLeft: (
-                      <IconButton className={classes.carouselArrow}>
-                        <KeyboardArrowLeft />
-                      </IconButton>
-                    ),
-                    arrowLeftDisabled: (
-                      <IconButton className={classes.carouselArrowDisabled}>
-                        <KeyboardArrowLeft />
-                      </IconButton>
-                    ),
-                    arrowRight: (
-                      <IconButton className={classes.carouselArrow}>
-                        <KeyboardArrowRight />
-                      </IconButton>
-                    ),
-                    arrowRightDisabled: (
-                      <IconButton className={classes.carouselArrowDisabled}>
-                        <KeyboardArrowRight />
-                      </IconButton>
-                    ),
-                    addArrowClickHandler: true,
+                  {
+                    resolve: arrowsPlugin,
+                    options: {
+                      arrowLeft: (
+                        <IconButton className={classes.carouselArrow}>
+                          <KeyboardArrowLeft />
+                        </IconButton>
+                      ),
+                      arrowLeftDisabled: (
+                        <IconButton className={classes.carouselArrowDisabled}>
+                          <KeyboardArrowLeft />
+                        </IconButton>
+                      ),
+                      arrowRight: (
+                        <IconButton className={classes.carouselArrow}>
+                          <KeyboardArrowRight />
+                        </IconButton>
+                      ),
+                      arrowRightDisabled: (
+                        <IconButton className={classes.carouselArrowDisabled}>
+                          <KeyboardArrowRight />
+                        </IconButton>
+                      ),
+                      addArrowClickHandler: true,
+                    },
                   },
-                },
-              ]}
-            >
-              {storeMocks.map((store, index) => (
-                <Storecard
-                  key={`${store.name}-${index}`}
-                  imageSource={store.photoImgUrl}
-                  discountValue={15}
-                  storeName={store.name}
-                  width="350px"
-                  type="primary"
-                  onClick={() => {
-                    const targetStore = storeMocks.find(
-                      (item) => item.name === store.name
-                    );
-                    console.log(`Setting ${targetStore.name} as targetStore`);
-                    actions.setTargetStore(targetStore);
-                    history.push(`/store/${targetStore.storeId}`);
-                  }}
-                />
-                // <img src={mock.imageSource} />
-              ))}
-            </Carousel>
+                ]}
+              >
+                {stores.map((store, index) => (
+                  <Storecard
+                    key={`${store.name}-${index}`}
+                    imageSource={store.photoImgUrl}
+                    discountValue={15}
+                    storeName={store.name}
+                    width="350px"
+                    type="primary"
+                    onClick={() => {
+                      const targetStore = storeMocks.find(
+                        (item) => item.name === store.name
+                      );
+                      console.log(`Setting ${targetStore.name} as targetStore`);
+                      actions.setTargetStore(targetStore);
+                      history.push(`/store/${targetStore.storeId}`);
+                    }}
+                  />
+                  // <img src={mock.imageSource} />
+                ))}
+              </Carousel>
+            )}
           </div>
         </div>
         <div className={classes.mainStoreList}>
@@ -148,63 +150,65 @@ const Home = () => {
             Outros estabelecimentos:
           </div>
           <div className={classes.storeCardContainer}>
-            <Carousel
-              plugins={[
-                {
-                  resolve: slidesToShowPlugin,
-                  options: {
-                    numberOfSlides: 4,
+            {stores.length > 0 && (
+              <Carousel
+                plugins={[
+                  {
+                    resolve: slidesToShowPlugin,
+                    options: {
+                      numberOfSlides: 4,
+                    },
                   },
-                },
-                {
-                  resolve: arrowsPlugin,
-                  options: {
-                    arrowLeft: (
-                      <IconButton className={classes.carouselArrow}>
-                        <KeyboardArrowLeft />
-                      </IconButton>
-                    ),
-                    arrowLeftDisabled: (
-                      <IconButton className={classes.carouselArrowDisabled}>
-                        <KeyboardArrowLeft />
-                      </IconButton>
-                    ),
-                    arrowRight: (
-                      <IconButton className={classes.carouselArrow}>
-                        <KeyboardArrowRight />
-                      </IconButton>
-                    ),
-                    arrowRightDisabled: (
-                      <IconButton className={classes.carouselArrowDisabled}>
-                        <KeyboardArrowRight />
-                      </IconButton>
-                    ),
-                    addArrowClickHandler: true,
+                  {
+                    resolve: arrowsPlugin,
+                    options: {
+                      arrowLeft: (
+                        <IconButton className={classes.carouselArrow}>
+                          <KeyboardArrowLeft />
+                        </IconButton>
+                      ),
+                      arrowLeftDisabled: (
+                        <IconButton className={classes.carouselArrowDisabled}>
+                          <KeyboardArrowLeft />
+                        </IconButton>
+                      ),
+                      arrowRight: (
+                        <IconButton className={classes.carouselArrow}>
+                          <KeyboardArrowRight />
+                        </IconButton>
+                      ),
+                      arrowRightDisabled: (
+                        <IconButton className={classes.carouselArrowDisabled}>
+                          <KeyboardArrowRight />
+                        </IconButton>
+                      ),
+                      addArrowClickHandler: true,
+                    },
                   },
-                },
-              ]}
-            >
-              {storeMocks.map((store, index) => (
-                <Storecard
-                  key={`${store.name}-${index}`}
-                  imageSource={store.photoImgUrl}
-                  discountValue={15}
-                  storeName={store.name}
-                  width="250px"
-                  type="secondary"
-                  rank={store.rank}
-                  onClick={() => {
-                    const targetStore = storeMocks.find(
-                      (item) => item.name === store.name
-                    );
-                    console.log(`Setting ${targetStore.name} as targetStore`);
-                    actions.setTargetStore(targetStore);
-                    history.push(`/store/${targetStore.storeId}`);
-                  }}
-                />
-                // <img src={mock.imageSource} />
-              ))}
-            </Carousel>
+                ]}
+              >
+                {stores.map((store, index) => (
+                  <Storecard
+                    key={`${store.name}-${index}`}
+                    imageSource={store.photoImgUrl}
+                    discountValue={15}
+                    storeName={store.name}
+                    width="250px"
+                    type="secondary"
+                    rank={store.rank}
+                    onClick={() => {
+                      const targetStore = stores.find(
+                        (item) => item.name === store.name
+                      );
+                      console.log(`Setting ${targetStore.name} as targetStore`);
+                      actions.setTargetStore(targetStore);
+                      history.push(`/store/${targetStore.storeId}`);
+                    }}
+                  />
+                  // <img src={mock.imageSource} />
+                ))}
+              </Carousel>
+            )}
           </div>
         </div>
       </div>

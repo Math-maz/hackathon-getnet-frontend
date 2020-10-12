@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import MyStyles from "../../assets/styles/MyStyles";
 import Navbar from "../../Components/BaseNavbar";
-import { Star, LocationOn } from "@material-ui/icons";
+import { Star, LocationOn, Phone } from "@material-ui/icons";
 import { Avatar, Paper } from "@material-ui/core";
 import HomeContext from "../../lib/context/home/HomeContext";
 const useStyles = makeStyles({
@@ -152,7 +152,10 @@ export default function StorePage() {
               <Star className={classes.icons} />
               {store.rank}
             </div>
-            <div className={classes.address}>
+            <div className={classes.andress}>
+              <Phone className={classes.icons} /> {store.phoneNumber}
+            </div>
+            <div className={classes.andress}>
               <LocationOn className={classes.icons} /> {store.andress}
             </div>
             <div className={classes.ownerInfo}>
