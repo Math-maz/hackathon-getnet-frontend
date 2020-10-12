@@ -1,4 +1,4 @@
-import { Paper, TextField } from "@material-ui/core";
+import { Paper, TextField, Snackbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
 import MyStyles from "../../assets/styles/MyStyles";
@@ -6,6 +6,8 @@ import Navbar from "../../Components/BaseNavbar";
 import Api from "../../lib/Api";
 import HomeContext from "../../lib/context/home/HomeContext";
 import { Check } from "@material-ui/icons";
+import { useParams } from "react-router-dom";
+import { Alert as MuiAlert } from "@material-ui/lab";
 const useStyles = makeStyles({
   root: {
     display: "flex",
@@ -50,47 +52,19 @@ const useStyles = makeStyles({
     fontSize: 18,
   },
 });
-const messageMock = [
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-];
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 export default function ClientChat() {
   const classes = useStyles();
+  const { discount } = useParams();
   const [messages, setMessages] = React.useState([]);
-  const [text, setText] = React.useState("");
+  const [open, setOpen] = React.useState(false);
+  const [text, setText] = React.useState(
+    discount !== "0"
+      ? `Gostaria de comprar na sua loja usando o cupom de ${discount}% de desconto.`
+      : ""
+  );
   const [paymentDone, setPaymentDone] = React.useState(false);
   const { state, actions } = React.useContext(HomeContext);
   React.useEffect(() => {
@@ -114,6 +88,7 @@ export default function ClientChat() {
       if (res.data.isOk) {
         actions.setUser({ balance: res.data.total });
         setPaymentDone(true);
+        setOpen(true);
       }
       console.log(res);
     });
@@ -176,6 +151,13 @@ export default function ClientChat() {
       });
     }
   };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
   return (
     <>
       <Navbar />
@@ -200,6 +182,15 @@ export default function ClientChat() {
             onKeyDown={handleKeyDown}
           />
         </Paper>
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            style={{ backgroundColor: MyStyles.colors.primary }}
+          >
+            Pagamento efetuado com sucesso
+          </Alert>
+        </Snackbar>
       </div>
     </>
   );
