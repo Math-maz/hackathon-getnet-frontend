@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Home from './pages/Home';
+import Wallet from './pages/Wallet';
 import Dashboard from './pages/Dashboard';
 import Courses from './pages/Dashboard/Courses';
 import Business from './pages/Dashboard/Business';
@@ -15,6 +16,13 @@ const Routes = () => {
         path="/" 
         render={() => (
           <Home/>
+        )}
+      />
+      <Route 
+        exact 
+        path="/carteira" 
+        render={() => (
+          <Wallet />
         )}
       />
       <Route
