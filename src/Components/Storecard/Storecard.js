@@ -7,7 +7,7 @@ const useStyles = makeStyles({
     position: "relative",
     borderRadius: 12,
     overflow: "hidden",
-    marginRight: "25px",
+    marginRight: "20px",
     WebkitBoxShadow: "2px 2px 5px 0px rgba(0,0,0,0.75)",
     cursor: "pointer",
     marginBottom: "5px",

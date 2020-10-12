@@ -26,19 +26,19 @@ const useStyles = makeStyles({
     marginBottom: "48px",
   },
   banner: {
-    width: "87.5%",
+    width: "80%",
   },
   mainStoreList: {
     display: "flex",
     flexDirection: "column",
-    width: "100%",
+    width: "90%",
     marginTop: "24px",
   },
   header: {
     color: MyStyles.colors.primary,
     fontSize: 24,
     fontWeight: "bold",
-    marginLeft: "6%",
+    marginLeft: "5%",
   },
   storeCardContainer: {
     display: "flex",
@@ -54,7 +54,7 @@ const useStyles = makeStyles({
     color: MyStyles.colors.black,
     fontSize: 22,
     fontWeight: "bold",
-    marginLeft: "6%",
+    marginLeft: "5.5%",
   },
   carouselArrow: {
     backgroundColor: MyStyles.colors.primary,
