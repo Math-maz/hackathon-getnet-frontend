@@ -1,6 +1,8 @@
-import React from "react";
-import { makeStyles } from "@material-ui/styles";
+import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+// import Api from "../../lib/Api";
 import Navbar from "../../Components/BaseNavbar";
+import { makeStyles } from "@material-ui/styles";
 import MyStyles from "../../assets/styles/MyStyles";
 
 const useStyles = makeStyles({
@@ -15,6 +17,12 @@ const useStyles = makeStyles({
   textContainer: {
     marginTop: '15px',
     color: MyStyles.colors.primary,
+    '& a': {
+      width: '100%',
+      textDecoration: 'none',
+      color: MyStyles.colors.primary,
+      textDecoration: 'none'
+    }
   },
   formContainer: {
     marginTop: '15px'
@@ -28,51 +36,141 @@ const useStyles = makeStyles({
   whiteContainer: {
     background: 'white',
     borderRadius: '10px',
+    width: '350px',
+    padding: '15px',
+    boxShadow: '0px 3px 6px #00000029',
     '& label': {
       fontSize: '12px',
     },
     '& input': {
-      borderRadius: '10px',
+      borderRadius: '8px',
+      height: '30px',
       border: `1px solid ${MyStyles.colors.primary}`,
+      paddingLeft: '10px',
+      marginTop: '5px'
     }
   },
   greenContainer: {
     background: MyStyles.colors.primary,
+    color: 'white',
     borderRadius: '20px',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: '15px',
+    boxShadow: '0px 3px 6px #00000029',
+    '& label': {
+      fontSize: '12px',
+    },
+  },
+  inputContainer: {
+    display: 'flex', 
+    flexDirection: 'column',
+    marginBottom: '10px'
+  },
+  amountInput: {
+    backgroundColor: 'inherit',
+    border: 'none',
+    color: 'white',
+    outline: 'none',
+    fontSize: '24px',
+    fontWeight: 'bold',
+    width: '150px',
+    textAlign: 'center' 
+  },
+  btnSubmit: {
+    width: '160px',
+    height: '50px',
+    fontSize: '18px',
+    color: MyStyles.colors.primary,
+    backgroundColor: 'white',
+    border: 'none',
+    borderRadius: '10px',
   }
 });
 
 export default function Wallet () {
+  const [creditCard, setCreditCard] = useState('**** **** 9012 3456');
+  const [clientName, setClientName] = useState('Matheus Marituba de Brito');
+  const [expirationDate, setExpirationDate] = useState('05/22');
+  const [verificationNumber, setVerificationNumber] = useState('***');
+  const [increaseAmount, setIncreaseAmount] = useState('R$100,00');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+
   const classes = useStyles();
   return(
     <>
       <Navbar />
       <div className={classes.root}>
-        <h1 className={classes.textContainer}>Adicionar saldo a carteira digital</h1>
+        <h2 className={classes.textContainer}>Adicionar saldo a carteira digital</h2>
         <h3 className={classes.textContainer} style={{color: 'black'}}>Seu cartão</h3>
         <div className={classes.formContainer}>
           <form className={classes.form}>
             <div className={classes.whiteContainer}>
-              <label for='creditCard'>Número do cartão</label>
-              <input id='creditCard' placeholder='**** **** 9012 3456' type='text' />
-              <label for='clientName'>Nome impresso no cartão</label>
-              <input id='clinetName' placeholder='Matheus Marituba de Brito' type='text' />
-              <label for='expirationDate'>Validade</label>
-              <input id='expirationDate' placeholder='05/22' type='text' />
-              <label for='verificationNumber'>CVV</label>
-              <input id='verificationNumber' placeholder='***' type='text' />
+              <div className={classes.inputContainer}>
+                <label htmlFor='creditCard'>Número do cartão</label>
+                <input
+                  style={{ width: '320px'}} 
+                  id='creditCard'
+                  value={creditCard} 
+                  type='text'
+                  disabled 
+                />
+              </div>
+              <div className={classes.inputContainer}>
+                <label htmlFor='clientName'>Nome impresso no cartão</label>
+                <input
+                  style={{ width: '320px'}}  
+                  id='clientName' 
+                  value={clientName} 
+                  type='text'
+                  disabled 
+                />
+              </div>
+              <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '240px'}}>
+                <div className={classes.inputContainer}>
+                  <label htmlFor='expirationDate'>Validade</label>
+                  <input
+                    style={{ width: '100px'}}  
+                    id='expirationDate' 
+                    value={expirationDate} 
+                    type='text'
+                    disabled 
+                  />  
+                </div>
+                <div className={classes.inputContainer}>
+                  <label htmlFor='verificationNumber'>CVV</label>
+                  <input
+                    style={{ width: '70px'}}  
+                    id='verificationNumber' 
+                    value={verificationNumber} 
+                    type='text'
+                    disabled 
+                  />
+                </div>
+              </div>
             </div>
             <div className={classes.greenContainer}>
-              <label for='increaseAmount'>Valor no cartão</label> 
-              <input id='increaseAmount' placeholder='R$100,00' type='text' />
-
-              <button type='submit'>Confirmar recarga</button> 
+              <label htmlFor='increaseAmount'>Valor no cartão:</label> 
+              <input 
+                className={classes.amountInput}
+                id='increaseAmount' 
+                value={increaseAmount}
+                onChange={e => setIncreaseAmount(e.target.vakue)} 
+                type='text' 
+              />
+              <button className={classes.btnSubmit} type='submit'>Confirmar recarga</button> 
             </div>
           </form>
         </div>
-        <h4 className={classes.textContainer}>Escolher ou cadastar cartão</h4>
+          <p className={classes.textContainer}>
+            <Link to='/carteira'>
+              Escolher ou cadastar cartão
+            </Link>
+          </p>
       </div>
     </>
   );
