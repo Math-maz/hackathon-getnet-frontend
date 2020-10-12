@@ -7,53 +7,63 @@ import Banner from "../../assets/styles/images/banner.png";
 const mocks = [
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
-    discountValue: 15,
     storeName: "random store",
+    storeCategory: "Vestuario",
   },
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
     discountValue: 15,
     storeName: "random store",
+    storeCategory: "Vestuario",
   },
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
     discountValue: 15,
     storeName: "random store",
+    storeCategory: "Vestuario",
   },
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
     discountValue: 15,
     storeName: "random store",
+    storeCategory: "Vestuario",
   },
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
     discountValue: 15,
     storeName: "random store",
+    storeCategory: "Vestuario",
   },
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
     discountValue: 15,
     storeName: "random store",
+    storeCategory: "Vestuario",
   },
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
     discountValue: 15,
     storeName: "random store",
+    storeCategory: "Vestuario",
   },
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
     discountValue: 15,
     storeName: "random store",
+    storeCategory: "Vestuario",
+  },
+  {
+    imageSource: "https://www.w3schools.com/css/paris.jpg",
+
+    discountValue: 15,
+    storeName: "random store",
+    storeCategory: "Vestuario",
   },
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
     discountValue: 15,
     storeName: "random store",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    discountValue: 15,
-    storeName: "random store",
+    storeCategory: "Vestuario",
   },
 ];
 const useStyles = makeStyles({
@@ -64,6 +74,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     placeItems: "center",
     backgroundColor: MyStyles.colors.gray,
+    marginBottom: "48px",
   },
   banner: {
     width: "80%",
@@ -72,28 +83,33 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     width: "100%",
-    paddingLeft: "10%",
     marginTop: "24px",
-    overflow: "scroll",
-    overflowX: "hidden",
   },
   header: {
     color: MyStyles.colors.primary,
     fontSize: 24,
     fontWeight: "bold",
+    marginLeft: "10%",
   },
   storeCardContainer: {
     display: "flex",
     marginTop: "12px",
+    overflow: "scroll",
+    overflowY: "hidden",
+    paddingLeft: "10%",
+    overflowX: "hidden",
+    paddingBottom: "36px",
   },
   secondaryHeader: {
     color: MyStyles.colors.black,
     fontSize: 22,
     fontWeight: "bold",
+    marginLeft: "10%",
   },
 });
 const Home = () => {
   const classes = useStyles();
+
   return (
     <>
       <Navbar />
@@ -108,6 +124,7 @@ const Home = () => {
                 discountValue={mock.discountValue}
                 storeName={mock.storeName}
                 width="350px"
+                type="primary"
               />
             ))}
           </div>
@@ -122,7 +139,9 @@ const Home = () => {
                 imageSource={mock.imageSource}
                 discountValue={mock.discountValue}
                 storeName={mock.storeName}
+                storeCategory={mock.storeCategory}
                 width="250px"
+                type="secondary"
               />
             ))}
           </div>
