@@ -192,7 +192,9 @@ export default function StorePage() {
         </div>
         <Paper className={classes.storeDescription} elevation={4}>
           <h3>Descriçao do estabelecimento</h3>
-          <div className={classes.description}>{store.description}</div>
+          <div className={classes.description}>
+            {store.description.split('\n').map((item, i) => <p key={i}>{item}</p>)}
+          </div>
         </Paper>
       </div>
     </>
