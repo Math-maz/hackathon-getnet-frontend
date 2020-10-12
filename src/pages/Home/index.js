@@ -131,7 +131,7 @@ const Home = () => {
                     width="350px"
                     type="primary"
                     onClick={() => {
-                      const targetStore = storeMocks.find(
+                      const targetStore = stores.find(
                         (item) => item.name === store.name
                       );
                       console.log(`Setting ${targetStore.name} as targetStore`);
