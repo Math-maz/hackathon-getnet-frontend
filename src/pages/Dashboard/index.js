@@ -8,11 +8,16 @@ import Coursecard from "../../Components/Coursecard";
 import ContactsIcon from "@material-ui/icons/Contacts";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import { makeStyles } from "@material-ui/styles";
+<<<<<<< HEAD
 import MyStyles from "../../assets/styles/MyStyles";
 
 const clients = 5;
 const coupons = 15;
 const visits = 2;
+=======
+import MyStyles from '../../assets/styles/MyStyles';
+import Api from "../../lib/Api";
+>>>>>>> 4cb032164c53c4c8ec1749a0d2e715b50fc168e3
 
 const mocks = [
   {
@@ -149,6 +154,28 @@ const useStyles = makeStyles({
 
 const Dashboard = () => {
   const classes = useStyles();
+  const [storeName, setStoreName] = React.useState('');
+  const [clients, setClients] = React.useState(5);
+  const [coupons, setCoupons] = React.useState(0);
+  const [visits, setVisits] = React.useState(0);
+
+  const getData = () => {
+    Api.get("/store/2264e4f3-7a72-4c27-900d-41ce47fbc1ba").then(
+      (response) => {
+        console.log(response);
+        if (response.data.isOk) {
+          setStoreName(response.data.name)
+          setCoupons(response.data.applyDiscountsCount)
+          setVisits(response.data.webCount)
+        }
+      }
+    );
+  }
+
+  React.useEffect(() => {
+    getData()
+  }, []);
+
   return (
     <div className={classes.root}>
       <SideBar />
@@ -157,12 +184,7 @@ const Dashboard = () => {
         <main className={classes.content}>
           <section style={{ marginTop: "15px" }}>
             <h2 className={classes.bannerTitle}>Novidades para</h2>
-            <h1
-              className={classes.bannerTitle}
-              style={{ color: MyStyles.colors.primary }}
-            >
-              Ateliê Dona Bonita
-            </h1>
+            <h1 className={classes.bannerTitle} style={{color: MyStyles.colors.primary}}>{storeName}</h1>
             <div className={classes.courseCardContainer}>
               {mocks.slice(0, 3).map((mock) => (
                 <Coursecard imageSource={mock.imageSource} title={mock.title} />
@@ -186,15 +208,9 @@ const Dashboard = () => {
               <Divider orientation="vertical" flexItem />
               <div className={classes.notification}>
                 <LocalOfferIcon />
-                <p>
-                  Sua loja tem
-                  <div>
-                    <span style={{ fontWeight: "bold", color: "black" }}>
-                      {coupons}
-                    </span>
-                  </div>
-                  {coupons === 1 ? ` cupom disponível` : ` cupons disponíveis`}
-                </p>
+                <p>Sua loja tem
+                  <div><span style={{fontWeight: "bold", color: 'black'}}>{coupons}</span></div> 
+                  {coupons === 1 ? ` cupom disponível`: ` cupons disponíveis`}</p>
               </div>
               <Divider orientation="vertical" flexItem />
               <div className={classes.btnsContainer}>
