@@ -4,8 +4,8 @@ import MyStyles from "../../assets/styles/MyStyles";
 import Searchbar from "../Searchbar";
 import { AccountCircle, ExitToApp } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
-import Logo from "../../assets/styles/images/logo1.png";
-
+import { useLocation } from "react-router-dom";
+import Logo from "../../assets/styles/images/icon.png";
 const useStyles = makeStyles({
   root: {
     position: "sticky",
@@ -19,8 +19,9 @@ const useStyles = makeStyles({
     borderRadius: 10,
     WebkitBoxShadow: "2px 2px 5px 0px rgba(0,0,0,0.75)",
     alignItems: "center",
+    zIndex: 10,
   },
-  logo: { width: "150px" },
+  logo: { width: "48px", marginRight: "48px" },
   logoContainer: {
     display: "flex",
     alignItems: "center",
@@ -36,11 +37,12 @@ const useStyles = makeStyles({
 });
 const Navbar = () => {
   const classes = useStyles();
+  const location = useLocation();
   return (
     <nav className={classes.root}>
       <div className={classes.logoContainer}>
-        <img src={Logo} className={classes.logo} />
-        <Searchbar />
+        <img src={Logo} className={classes.logo} alt="" />
+        {location.pathname.includes("home") && <Searchbar />}
       </div>
       <div className={classes.userInfoContainer}>
         <div className={classes.accountBalance}>
