@@ -51,26 +51,28 @@ const Navbar = () => {
         {location.pathname.includes("home") && <Searchbar />}
       </div>
       <div className={classes.userInfoContainer}>
-        <div className={classes.accountBalance}>
-          <div
-            style={{
-              color: MyStyles.colors.primary,
-              fontSize: 14,
-              alignSelf: "center",
-            }}
-          >
-            Meu saldo
+        {!location.pathname.includes("chat/store") && (
+          <div className={classes.accountBalance}>
+            <div
+              style={{
+                color: MyStyles.colors.primary,
+                fontSize: 14,
+                alignSelf: "center",
+              }}
+            >
+              Meu saldo
+            </div>
+            <div
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: MyStyles.colors.darks["70"],
+              }}
+            >
+              {user.balance && formatToCurrency(user.balance)}
+            </div>
           </div>
-          <div
-            style={{
-              fontSize: 20,
-              fontWeight: "bold",
-              color: MyStyles.colors.darks["70"],
-            }}
-          >
-            {user.balance && formatToCurrency(user.balance)}
-          </div>
-        </div>
+        )}
         <IconButton onClick={() => history.push("/carteira")}>
           <AccountCircle
             fontSize="large"
