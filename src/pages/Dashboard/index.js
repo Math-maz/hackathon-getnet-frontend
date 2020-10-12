@@ -9,32 +9,25 @@ import ContactsIcon from "@material-ui/icons/Contacts";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import { makeStyles } from "@material-ui/styles";
 import MyStyles from "../../assets/styles/MyStyles";
+
+import fluxo from '../../assets/styles/images/fluxocaixa.png'
+import cliente from '../../assets/styles/images/cliente.png'
+import whatsapp from '../../assets/styles/images/whatsapp.png'
+
 import Api from "../../lib/Api";
 
 const mocks = [
   {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
+    imageSource: fluxo,
     title: "Como fazer o fluxo de caixa de seu estabelecimento",
   },
   {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    title: "Como fazer o fluxo de caixa de seu estabelecimento",
+    imageSource: whatsapp,
+    title: "Crie um WhatsApp Business para o seu negócio",
   },
   {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    title: "Como fazer o fluxo de caixa de seu estabelecimento",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    title: "Como fazer o fluxo de caixa de seu estabelecimento",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    title: "Como fazer o fluxo de caixa de seu estabelecimento",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    title: "Como fazer o fluxo de caixa de seu estabelecimento",
+    imageSource: cliente,
+    title: "Como saber que é seu cliente",
   },
 ];
 
