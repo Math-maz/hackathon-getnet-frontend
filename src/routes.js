@@ -21,7 +21,11 @@ const Routes = () => {
       <Route exact path="/dashboard/cursos" render={() => <Courses />} />
       <Route exact path="/dashboard/seunegocio" render={() => <Business />} />
       <Route exact path="/store/:storeId" render={() => <StorePage />} />
-      <Route exact path="/chat/client" render={() => <ClientChat />} />
+      <Route
+        exact
+        path="/chat/client/:discount"
+        render={() => <ClientChat />}
+      />
       <Route exact path="/chat/store" render={() => <StoreChat />} />
     </Switch>
   );

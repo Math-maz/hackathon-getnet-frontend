@@ -1,8 +1,13 @@
-import { Paper, TextField } from "@material-ui/core";
+import { Paper, TextField, Snackbar } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import React from "react";
 import MyStyles from "../../assets/styles/MyStyles";
 import Navbar from "../../Components/BaseNavbar";
+import Api from "../../lib/Api";
+import HomeContext from "../../lib/context/home/HomeContext";
+import { Check } from "@material-ui/icons";
+import { useParams } from "react-router-dom";
+import { Alert as MuiAlert } from "@material-ui/lab";
 const useStyles = makeStyles({
   root: {
     display: "flex",
@@ -47,50 +52,116 @@ const useStyles = makeStyles({
     fontSize: 18,
   },
 });
-const messageMock = [
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-];
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 export default function ClientChat() {
   const classes = useStyles();
+  const { discount } = useParams();
+  const [messages, setMessages] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [text, setText] = React.useState(
+    discount !== "0"
+      ? `Gostaria de comprar na sua loja usando o cupom de ${discount}% de desconto.`
+      : ""
+  );
+  const [paymentDone, setPaymentDone] = React.useState(false);
+  const { state, actions } = React.useContext(HomeContext);
+
+  const getConversation = () => {
+    Api.get("/conversation/1eeeaff9-d1fb-40cd-a059-a53799ee15ca").then(
+      (res) => {
+        console.log(res);
+        if (res.data.isOk) {
+          setMessages(res.data.messages);
+        }
+      }
+    );
+  };
+
+  React.useEffect(() => {
+    getConversation();
+    setInterval(getConversation, 3000);
+  }, []);
+
+  const handleBilling = (amount) => {
+    const formatedAmount = amount.slice(2);
+    console.log(formatedAmount);
+    Api.get(
+      `/transaction/e7804097-1234-43cc-9df2-9688200b12ad/a1036fae-07b2-4d75-907b-51d74c7878a6/${formatedAmount}/transacao`
+    ).then((res) => {
+      if (res.data.isOk) {
+        actions.setUser({ balance: res.data.total });
+        setPaymentDone(true);
+        setOpen(true);
+      }
+      console.log(res);
+    });
+  };
+  const formatMessage = (message) => {
+    if (message.text.includes("R$")) {
+      return (
+        <div
+          className={message.isMe ? classes.sended : classes.received}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div style={{ fontWeight: "bold", fontSize: 24 }}>
+            Cobrança de {message.text}
+          </div>
+          <button
+            style={{
+              width: "80%",
+              marginTop: "4px",
+              padding: "12px 0",
+              backgroundColor: MyStyles.colors.primary,
+              color: MyStyles.colors.white,
+              borderRadius: 25,
+              border: "none",
+              cursor: "pointer",
+            }}
+            onClick={() => handleBilling(message.text)}
+          >
+            {paymentDone ? (
+              <Check style={{ color: MyStyles.colors.white, fontSize: 14 }} />
+            ) : (
+              "PAGAR"
+            )}
+          </button>
+        </div>
+      );
+    }
+    return (
+      <div className={message.isMe ? classes.sended : classes.received}>
+        {message.text}
+      </div>
+    );
+  };
   const handleKeyDown = (e) => {
     if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
       console.log(e);
+      Api.post("/conversation/1eeeaff9-d1fb-40cd-a059-a53799ee15ca", {
+        isMe: true,
+        text,
+      }).then((res) => {
+        if (res.data.isOk) {
+          setMessages(res.data.messages);
+          setText("");
+        }
+      });
     }
+  };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
   return (
     <>
@@ -100,16 +171,15 @@ export default function ClientChat() {
           <div className={classes.header}>
             Você está conversando com Ateliê Dona Bonita (Joana)
           </div>
-          {messageMock.map((message) => (
-            <div className={message.isMe ? classes.sended : classes.received}>
-              {message.message}
-            </div>
-          ))}
+          {messages.length > 1 &&
+            messages.map((message) => formatMessage(message))}
         </div>
         <Paper elevation={4} className={classes.chatWindow}>
           <TextField
             label="Digite uma mensagem..."
             className={classes.textField}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             multiline={true}
             variant="filled"
             rows={4}
@@ -117,6 +187,15 @@ export default function ClientChat() {
             onKeyDown={handleKeyDown}
           />
         </Paper>
+        <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            style={{ backgroundColor: MyStyles.colors.primary }}
+          >
+            Pagamento efetuado com sucesso
+          </Alert>
+        </Snackbar>
       </div>
     </>
   );

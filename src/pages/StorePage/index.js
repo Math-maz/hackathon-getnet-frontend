@@ -5,6 +5,7 @@ import Navbar from "../../Components/BaseNavbar";
 import { Star, LocationOn, Phone } from "@material-ui/icons";
 import { Avatar, Paper } from "@material-ui/core";
 import HomeContext from "../../lib/context/home/HomeContext";
+import { useHistory } from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     marginTop: "20px",
@@ -123,6 +124,7 @@ const useStyles = makeStyles({
 // };
 export default function StorePage() {
   const classes = useStyles();
+  const history = useHistory();
   const { state, actions } = React.useContext(HomeContext);
   const [store, setStore] = React.useState(state.targetStore);
   const [photo, setPhoto] = React.useState(store.productsImgs[0]);
@@ -169,8 +171,20 @@ export default function StorePage() {
               </div>
             </div>
             <div className={classes.buttonContainer}>
-              <button className={classes.contactButton}>QUERO COMPRAR</button>
-              <button className={classes.couponButton}>
+              <button
+                className={classes.contactButton}
+                onClick={() => {
+                  history.push(`/chat/client/0`);
+                }}
+              >
+                QUERO COMPRAR
+              </button>
+              <button
+                className={classes.couponButton}
+                onClick={() => {
+                  history.push(`/chat/client/15`);
+                }}
+              >
                 GARANTIR 15% DE DESCONTO
               </button>
             </div>
