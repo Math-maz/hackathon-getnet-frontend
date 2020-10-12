@@ -195,7 +195,7 @@ const Dashboard = () => {
             <div className={classes.notificationContainer}>
               <div className={classes.notification}>
                 <ContactsIcon />
-                <p><span style={{fontWeight: "bold"}}>{clients}</span>{clients === 1? ` cliente está`: ` clientes estão`} esperando sua resposta no chat</p>
+                <p><span style={{fontWeight: "bold", color: 'black'}}>{clients}</span>{clients === 1? ` cliente está`: ` clientes estão`} esperando sua resposta no chat</p>
               </div>
               <Divider orientation="vertical" flexItem/>
               <div className={classes.notification}>

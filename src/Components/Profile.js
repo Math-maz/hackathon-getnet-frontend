@@ -31,8 +31,8 @@ const Navbar = () => {
   const classes = useStyles();
   return (
     <nav className={classes.root}>
-      <div>
-        Olá! Fulano
+      <div style={{color: MyStyles.colors.primary}}>
+        Olá!<span style={{fontWeight: 'bold'}}> Joana</span>
       </div>
       <div className={classes.userInfoContainer}>
         <IconButton>
