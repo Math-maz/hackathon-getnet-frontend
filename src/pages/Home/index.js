@@ -4,6 +4,15 @@ import Navbar from "../../Components/BaseNavbar";
 import MyStyles from "../../assets/styles/MyStyles";
 import Storecard from "../../Components/Storecard";
 import Banner from "../../assets/styles/images/banner.png";
+import { IconButton } from "@material-ui/core";
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
+import Carousel, {
+  slidesToShowPlugin,
+  arrowsPlugin,
+} from "@brainhubeu/react-carousel";
+import "@brainhubeu/react-carousel/lib/style.css";
+import Api from "../../lib/Api";
+import storeMocks from "../../mocks/storeMocks";
 const mocks = [
   {
     imageSource: "https://www.w3schools.com/css/paris.jpg",
@@ -96,9 +105,10 @@ const useStyles = makeStyles({
     marginTop: "12px",
     overflow: "scroll",
     overflowY: "hidden",
-    paddingLeft: "10%",
     overflowX: "hidden",
     paddingBottom: "36px",
+    paddingLeft: "12px",
+    paddingRight: "12px",
   },
   secondaryHeader: {
     color: MyStyles.colors.black,
@@ -106,10 +116,17 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     marginLeft: "10%",
   },
+  carouselArrow: {
+    backgroundColor: MyStyles.colors.primary,
+    color: MyStyles.colors.white,
+  },
 });
 const Home = () => {
   const classes = useStyles();
-
+  const [stores, setStores] = React.useState([]);
+  React.useEffect(() => {
+    Api.get("/store/all").then((res) => console.log(res.data));
+  }, []);
   return (
     <>
       <Navbar />
@@ -118,15 +135,44 @@ const Home = () => {
         <div className={classes.mainStoreList}>
           <div className={classes.header}>Descontos perto de você!</div>
           <div className={classes.storeCardContainer}>
-            {mocks.map((mock) => (
-              <Storecard
-                imageSource={mock.imageSource}
-                discountValue={mock.discountValue}
-                storeName={mock.storeName}
-                width="350px"
-                type="primary"
-              />
-            ))}
+            <Carousel
+              plugins={[
+                {
+                  resolve: slidesToShowPlugin,
+                  options: {
+                    numberOfSlides: 3,
+                  },
+                },
+                {
+                  resolve: arrowsPlugin,
+                  options: {
+                    arrowLeft: (
+                      <IconButton className={classes.carouselArrow}>
+                        <KeyboardArrowLeft />
+                      </IconButton>
+                    ),
+                    arrowRight: (
+                      <IconButton className={classes.carouselArrow}>
+                        <KeyboardArrowRight />
+                      </IconButton>
+                    ),
+                    addArrowClickHandler: true,
+                  },
+                },
+              ]}
+            >
+              {storeMocks.map((store, index) => (
+                <Storecard
+                  key={`${store.name}-${index}`}
+                  imageSource={store.photoImgUrl}
+                  discountValue={15}
+                  storeName={store.name}
+                  width="350px"
+                  type="primary"
+                />
+                // <img src={mock.imageSource} />
+              ))}
+            </Carousel>
           </div>
         </div>
         <div className={classes.mainStoreList}>
@@ -134,16 +180,44 @@ const Home = () => {
             Outros estabelecimentos:
           </div>
           <div className={classes.storeCardContainer}>
-            {mocks.map((mock) => (
-              <Storecard
-                imageSource={mock.imageSource}
-                discountValue={mock.discountValue}
-                storeName={mock.storeName}
-                storeCategory={mock.storeCategory}
-                width="250px"
-                type="secondary"
-              />
-            ))}
+            <Carousel
+              plugins={[
+                {
+                  resolve: slidesToShowPlugin,
+                  options: {
+                    numberOfSlides: 4,
+                  },
+                },
+                {
+                  resolve: arrowsPlugin,
+                  options: {
+                    arrowLeft: (
+                      <IconButton className={classes.carouselArrow}>
+                        <KeyboardArrowLeft />
+                      </IconButton>
+                    ),
+                    arrowRight: (
+                      <IconButton className={classes.carouselArrow}>
+                        <KeyboardArrowRight />
+                      </IconButton>
+                    ),
+                    addArrowClickHandler: true,
+                  },
+                },
+              ]}
+            >
+              {storeMocks.map((store, index) => (
+                <Storecard
+                  key={`${store.name}-${index}`}
+                  imageSource={store.photoImgUrl}
+                  discountValue={15}
+                  storeName={store.name}
+                  width="250px"
+                  type="secondary"
+                />
+                // <img src={mock.imageSource} />
+              ))}
+            </Carousel>
           </div>
         </div>
       </div>
