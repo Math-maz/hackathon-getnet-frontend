@@ -67,18 +67,23 @@ export default function ClientChat() {
   );
   const [paymentDone, setPaymentDone] = React.useState(false);
   const { state, actions } = React.useContext(HomeContext);
-  React.useEffect(() => {
-    setInterval(function () {
-      Api.get("/conversation/1eeeaff9-d1fb-40cd-a059-a53799ee15ca").then(
-        (res) => {
-          console.log(res);
-          if (res.data.isOk) {
-            setMessages(res.data.messages);
-          }
+
+  const getConversation = () => {
+    Api.get("/conversation/1eeeaff9-d1fb-40cd-a059-a53799ee15ca").then(
+      (res) => {
+        console.log(res);
+        if (res.data.isOk) {
+          setMessages(res.data.messages);
         }
-      );
-    }, 3000);
+      }
+    );
+  };
+
+  React.useEffect(() => {
+    getConversation();
+    setInterval(getConversation, 3000);
   }, []);
+
   const handleBilling = (amount) => {
     const formatedAmount = amount.slice(2);
     console.log(formatedAmount);

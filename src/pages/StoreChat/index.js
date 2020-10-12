@@ -63,60 +63,29 @@ const useStyles = makeStyles({
     marginTop: "12px",
   },
 });
-const messageMock = [
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-  {
-    message:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse aliquet interdum mattis. Sed molestie purus felis, vitae maximus enim pulvinar nec. Phasellus sit amet tempor tortor. Phasellus nec nisi iaculis, finibus est ut, luctus dolor. Aenean ac dignissim ipsum. Vivamus sit amet enim vel turpis interdum congue ut sit amet justo. Ut id cursus erat. Suspendisse purus quam, luctus id venenatis quis, semper quis mauris.",
-    isMe: !!Math.round(Math.random()),
-  },
-];
+
 export default function ClientChat() {
   const classes = useStyles();
   const [messages, setMessages] = React.useState([]);
   const [text, setText] = React.useState("");
   const [billing, setBilling] = React.useState("R$");
-  React.useEffect(() => {
-    setInterval(function () {
-      Api.get("/conversation/1eeeaff9-d1fb-40cd-a059-a53799ee15ca").then(
-        (res) => {
-          console.log(res);
-          if (res.data.isOk) {
-            setMessages(res.data.messages);
-          }
+
+  const getConversation = () => {
+    Api.get("/conversation/1eeeaff9-d1fb-40cd-a059-a53799ee15ca").then(
+      (res) => {
+        console.log(res);
+        if (res.data.isOk) {
+          setMessages(res.data.messages);
         }
-      );
-    }, 3000);
+      }
+    );
+  }
+
+  React.useEffect(() => {
+    getConversation()
+    setInterval(getConversation, 3000);
   }, []);
+
   const handleKeyDown = (e) => {
     if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
