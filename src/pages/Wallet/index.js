@@ -106,7 +106,7 @@ export default function Wallet() {
   function handleSubmit(e) {
     e.preventDefault();
     Api.post("/transaction/create", {
-      userId: "2264e4f3-7a72-4c27-900d-41ce47fbc1ba",
+      userId: "e7804097-1234-43cc-9df2-9688200b12ad",
       cardNumber: "5155901222280001",
       amount: "100",
       name: "JOAO DA SILVA",
@@ -115,6 +115,7 @@ export default function Wallet() {
       securityCode: "123",
     }).then((res) => {
       if (res.data.isOk) {
+        console.log(res);
         actions.setUser({ balance: user.balance + res.data.payment.amount });
       }
     });
