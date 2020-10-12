@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import MyStyles from "../assets/styles/MyStyles";
-import { AccountCircle, ExitToApp } from "@material-ui/icons";
+import { AccountCircle } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles({
