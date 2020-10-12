@@ -41,7 +41,7 @@ const Navbar = () => {
   return (
     <nav className={classes.root}>
       <div className={classes.logoContainer}>
-        <img src={Logo} className={classes.logo} />
+        <img src={Logo} className={classes.logo} alt="" />
         {location.pathname.includes("home") && <Searchbar />}
       </div>
       <div className={classes.userInfoContainer}>

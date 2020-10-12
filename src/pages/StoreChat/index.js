@@ -102,7 +102,7 @@ const messageMock = [
 export default function ClientChat() {
   const classes = useStyles();
   const handleKeyDown = (e) => {
-    if (e.keyCode == 13 && e.shiftKey == false) {
+    if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
       console.log(e);
     }
