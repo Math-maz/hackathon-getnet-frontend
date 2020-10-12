@@ -10,6 +10,7 @@ const useStyles = makeStyles({
     marginRight: "25px",
     WebkitBoxShadow: "2px 2px 5px 0px rgba(0,0,0,0.75)",
     cursor: "pointer",
+    marginBottom: "5px",
   },
   image: {
     position: "relative",
@@ -63,6 +64,7 @@ export default function Storecard({
   storeName,
   storeCategory,
   width,
+  height,
   type,
 }) {
   const classes = useStyles();
