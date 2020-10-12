@@ -4,6 +4,7 @@ import MyStyles from "../../assets/styles/MyStyles";
 import Navbar from "../../Components/BaseNavbar";
 import { Star, LocationOn } from "@material-ui/icons";
 import { Avatar, Paper } from "@material-ui/core";
+import HomeContext from "../../lib/context/home/HomeContext";
 const useStyles = makeStyles({
   root: {
     marginTop: "20px",
@@ -99,30 +100,33 @@ const useStyles = makeStyles({
     cursor: "pointer",
   },
 });
-const store = {
-  storeId: "2264e4f3-7a72-4c27-900d-41ce47fbc1ba",
-  name: "Ateliê Dona Bonita",
-  description:
-    "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam",
-  type: "Vestuário",
-  rank: 4.98,
-  webCount: 189,
-  applyDiscountsCount: 43,
-  phoneNumber: "91989347171",
-  andress: "Avenida Romulo Maiorana, 1222",
-  profileImgUrl: "https://source.unsplash.com/random/77x77",
-  profileDescription:
-    "Joana, 24 anos, a dois anos entrou no mundo da moda com seu próprio ateliê, sonha um dia ver suas peças em grandes desfiles de moda no mundo inteiro.",
-  photoImgUrl: "https://source.unsplash.com/random/466x320",
-  productsImgs: [
-    "https://source.unsplash.com/random/450x450",
-    "https://source.unsplash.com/random/450x450",
-    "https://source.unsplash.com/random/450x450",
-  ],
-};
+// const store = {
+//   storeId: "2264e4f3-7a72-4c27-900d-41ce47fbc1ba",
+//   name: "Ateliê Dona Bonita",
+//   description:
+//     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam",
+//   type: "Vestuário",
+//   rank: 4.98,
+//   webCount: 189,
+//   applyDiscountsCount: 43,
+//   phoneNumber: "91989347171",
+//   andress: "Avenida Romulo Maiorana, 1222",
+//   profileImgUrl: "https://source.unsplash.com/random/77x77",
+//   profileDescription:
+//     "Joana, 24 anos, a dois anos entrou no mundo da moda com seu próprio ateliê, sonha um dia ver suas peças em grandes desfiles de moda no mundo inteiro.",
+//   photoImgUrl: "https://source.unsplash.com/random/466x320",
+//   productsImgs: [
+//     "https://source.unsplash.com/random/450x450",
+//     "https://source.unsplash.com/random/450x450",
+//     "https://source.unsplash.com/random/450x450",
+//   ],
+// };
 export default function StorePage() {
   const classes = useStyles();
+  const { state, actions } = React.useContext(HomeContext);
+  const [store, setStore] = React.useState(state.targetStore);
   const [photo, setPhoto] = React.useState(store.productsImgs[0]);
+
   return (
     <>
       <Navbar />

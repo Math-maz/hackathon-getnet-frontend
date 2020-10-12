@@ -64,9 +64,9 @@ export default function Storecard({
   storeName,
   storeCategory,
   width,
-  height,
   type,
   rank,
+  onClick,
 }) {
   const classes = useStyles();
   const getBottomTab = () => {
@@ -115,7 +115,7 @@ export default function Storecard({
   };
 
   return (
-    <div className={classes.root} style={{ minWidth: width }}>
+    <div className={classes.root} style={{ minWidth: width }} onClick={onClick}>
       <img
         src={imageSource}
         style={{ width: width }}

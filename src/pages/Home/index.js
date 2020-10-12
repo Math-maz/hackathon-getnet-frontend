@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
+import { useHistory } from "react-router-dom";
 import Navbar from "../../Components/BaseNavbar";
 import MyStyles from "../../assets/styles/MyStyles";
 import Storecard from "../../Components/Storecard";
@@ -13,68 +14,7 @@ import Carousel, {
 import "@brainhubeu/react-carousel/lib/style.css";
 import Api from "../../lib/Api";
 import storeMocks from "../../mocks/storeMocks";
-const mocks = [
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    storeName: "random store",
-    storeCategory: "Vestuario",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    discountValue: 15,
-    storeName: "random store",
-    storeCategory: "Vestuario",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    discountValue: 15,
-    storeName: "random store",
-    storeCategory: "Vestuario",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    discountValue: 15,
-    storeName: "random store",
-    storeCategory: "Vestuario",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    discountValue: 15,
-    storeName: "random store",
-    storeCategory: "Vestuario",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    discountValue: 15,
-    storeName: "random store",
-    storeCategory: "Vestuario",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    discountValue: 15,
-    storeName: "random store",
-    storeCategory: "Vestuario",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    discountValue: 15,
-    storeName: "random store",
-    storeCategory: "Vestuario",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-
-    discountValue: 15,
-    storeName: "random store",
-    storeCategory: "Vestuario",
-  },
-  {
-    imageSource: "https://www.w3schools.com/css/paris.jpg",
-    discountValue: 15,
-    storeName: "random store",
-    storeCategory: "Vestuario",
-  },
-];
+import HomeContext from "../../lib/context/home/HomeContext";
 const useStyles = makeStyles({
   root: {
     paddingTop: "24px",
@@ -128,6 +68,11 @@ const useStyles = makeStyles({
 const Home = () => {
   const classes = useStyles();
   const [stores, setStores] = React.useState([]);
+  const history = useHistory();
+  const {
+    state: { targetStore },
+    actions,
+  } = React.useContext(HomeContext);
   React.useEffect(() => {
     Api.get("/store/all").then((res) => console.log(res.data));
   }, []);
@@ -183,6 +128,14 @@ const Home = () => {
                   storeName={store.name}
                   width="350px"
                   type="primary"
+                  onClick={() => {
+                    const targetStore = storeMocks.find(
+                      (item) => item.name === store.name
+                    );
+                    console.log(`Setting ${targetStore.name} as targetStore`);
+                    actions.setTargetStore(targetStore);
+                    history.push(`/store/${targetStore.storeId}`);
+                  }}
                 />
                 // <img src={mock.imageSource} />
               ))}
@@ -239,6 +192,14 @@ const Home = () => {
                   width="250px"
                   type="secondary"
                   rank={store.rank}
+                  onClick={() => {
+                    const targetStore = storeMocks.find(
+                      (item) => item.name === store.name
+                    );
+                    console.log(`Setting ${targetStore.name} as targetStore`);
+                    actions.setTargetStore(targetStore);
+                    history.push(`/store/${targetStore.storeId}`);
+                  }}
                 />
                 // <img src={mock.imageSource} />
               ))}
