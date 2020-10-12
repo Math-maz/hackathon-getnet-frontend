@@ -120,6 +120,10 @@ const useStyles = makeStyles({
     backgroundColor: MyStyles.colors.primary,
     color: MyStyles.colors.white,
   },
+  carouselArrowDisabled: {
+    backgroundColor: MyStyles.colors.black,
+    color: MyStyles.colors.white,
+  },
 });
 const Home = () => {
   const classes = useStyles();
@@ -151,8 +155,18 @@ const Home = () => {
                         <KeyboardArrowLeft />
                       </IconButton>
                     ),
+                    arrowLeftDisabled: (
+                      <IconButton className={classes.carouselArrowDisabled}>
+                        <KeyboardArrowLeft />
+                      </IconButton>
+                    ),
                     arrowRight: (
                       <IconButton className={classes.carouselArrow}>
+                        <KeyboardArrowRight />
+                      </IconButton>
+                    ),
+                    arrowRightDisabled: (
+                      <IconButton className={classes.carouselArrowDisabled}>
                         <KeyboardArrowRight />
                       </IconButton>
                     ),
@@ -196,8 +210,18 @@ const Home = () => {
                         <KeyboardArrowLeft />
                       </IconButton>
                     ),
+                    arrowLeftDisabled: (
+                      <IconButton className={classes.carouselArrowDisabled}>
+                        <KeyboardArrowLeft />
+                      </IconButton>
+                    ),
                     arrowRight: (
                       <IconButton className={classes.carouselArrow}>
+                        <KeyboardArrowRight />
+                      </IconButton>
+                    ),
+                    arrowRightDisabled: (
+                      <IconButton className={classes.carouselArrowDisabled}>
                         <KeyboardArrowRight />
                       </IconButton>
                     ),
@@ -214,6 +238,7 @@ const Home = () => {
                   storeName={store.name}
                   width="250px"
                   type="secondary"
+                  rank={store.rank}
                 />
                 // <img src={mock.imageSource} />
               ))}

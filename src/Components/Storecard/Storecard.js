@@ -66,6 +66,7 @@ export default function Storecard({
   width,
   height,
   type,
+  rank,
 }) {
   const classes = useStyles();
   const getBottomTab = () => {
@@ -95,7 +96,7 @@ export default function Storecard({
                   marginRight: "4px",
                 }}
               />
-              4.98
+              {rank}
             </div>
             {discountValue ? (
               <div
