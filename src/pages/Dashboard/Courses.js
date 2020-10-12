@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/styles';
 import MyStyles from '../../assets/styles/MyStyles';
 
 const course = [{
-  imageSource: "https://www.w3schools.com/css/paris.jpg",
   title: 'Como fazer o fluxo de caixa de seu estabelecimento',
   content: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
   }
@@ -44,10 +43,14 @@ export default function Courses() {
         <Profile />
         <main className={classes.content}>
           <section style={{marginTop: '28px'}}>
-            <img
-              src={course[0].imageSource}
-              style={{ width: '850px', height: '400px', borderRadius: '10px' }}
-              alt="mão escrevendo"
+            <iframe
+              title="fluxo de caixa" 
+              width="850" 
+              height="400" 
+              src="https://www.youtube.com/embed/U8sJI8feaQ4"
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen
             />
           </section>
           <section>

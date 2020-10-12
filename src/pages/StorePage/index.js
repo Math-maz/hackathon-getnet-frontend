@@ -2,9 +2,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/styles";
 import MyStyles from "../../assets/styles/MyStyles";
 import Navbar from "../../Components/BaseNavbar";
-import { Star, LocationOn } from "@material-ui/icons";
+import { Star, LocationOn, Phone } from "@material-ui/icons";
 import { Avatar, Paper } from "@material-ui/core";
 import HomeContext from "../../lib/context/home/HomeContext";
+import { useHistory } from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     marginTop: "20px",
@@ -123,6 +124,7 @@ const useStyles = makeStyles({
 // };
 export default function StorePage() {
   const classes = useStyles();
+  const history = useHistory();
   const { state, actions } = React.useContext(HomeContext);
   const [store, setStore] = React.useState(state.targetStore);
   const [photo, setPhoto] = React.useState(store.productsImgs[0]);
@@ -152,7 +154,10 @@ export default function StorePage() {
               <Star className={classes.icons} />
               {store.rank}
             </div>
-            <div className={classes.address}>
+            <div className={classes.andress}>
+              <Phone className={classes.icons} /> {store.phoneNumber}
+            </div>
+            <div className={classes.andress}>
               <LocationOn className={classes.icons} /> {store.andress}
             </div>
             <div className={classes.ownerInfo}>
@@ -166,8 +171,20 @@ export default function StorePage() {
               </div>
             </div>
             <div className={classes.buttonContainer}>
-              <button className={classes.contactButton}>QUERO COMPRAR</button>
-              <button className={classes.couponButton}>
+              <button
+                className={classes.contactButton}
+                onClick={() => {
+                  history.push(`/chat/client/0`);
+                }}
+              >
+                QUERO COMPRAR
+              </button>
+              <button
+                className={classes.couponButton}
+                onClick={() => {
+                  history.push(`/chat/client/15`);
+                }}
+              >
                 GARANTIR 15% DE DESCONTO
               </button>
             </div>
@@ -175,7 +192,9 @@ export default function StorePage() {
         </div>
         <Paper className={classes.storeDescription} elevation={4}>
           <h3>Descriçao do estabelecimento</h3>
-          <div className={classes.description}>{store.description}</div>
+          <div className={classes.description}>
+            {store.description.split('\n').map((item, i) => <p key={i}>{item}</p>)}
+          </div>
         </Paper>
       </div>
     </>
