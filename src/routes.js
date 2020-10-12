@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import Courses from './pages/Dashboard/Courses';
 import Business from './pages/Dashboard/Business';
 
+
 const Routes = () => {
   return (
     <Switch>
@@ -30,7 +31,7 @@ const Routes = () => {
           <Courses />
         )} 
       />
-            <Route
+      <Route
         exact
         path='/dashboard/seunegocio'
         render={() => (
